@@ -1,42 +1,168 @@
+const dbFunctions = require('../db/helpers');
 const inquirer = require('inquirer');
 
-const departmentPrompt = [
-    {
+async function startProgram() {
+    try {
+      const answers = await inquirer.prompt({
+        type: 'list',
+        name: 'choice',
+        message: 'What would you like to do?',
+        choices: [
+          'View all departments',
+          'View all roles',
+          'View all employees',
+          'Add a department',
+          'Add a role',
+          'Add an employee',
+          'Update an employee role',
+          'Quit'
+        ]
+      });
+      switch(answers.choice) {
+        case 'View all departments':
+          await viewAllDepartments();
+          break;
+        case 'View all roles':
+          await viewAllRoles();
+          break;
+        case 'View all employees':
+          await viewAllEmployees();
+          break;
+        case 'Add a department':
+          await addDepartment();
+          break;
+        case 'Add a role':
+          await addRole();
+          break;
+        case 'Add an employee':
+          await addEmployee();
+          break;
+        case 'Update an employee role':
+          await updateEmployeeRole();
+          break;
+        case 'Quit':
+          console.log('Goodbye!');
+          process.exit();
+          break;
+        default:
+          console.log('Invalid choice');
+          await startProgram();
+          break;
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  }
+
+  async function viewAllDepartments() {
+    // Code to display all departments from the database
+    await startProgram();
+  }
+
+  async function viewAllRoles() {
+    // Code to display all roles from the database
+    await startProgram();
+  }
+
+  async function viewAllEmployees() {
+    // Code to display all employees from the database
+    await startProgram();
+  }
+
+  async function addDepartment() {
+    try {
+      const answers = await inquirer.prompt({
         type: 'input',
-        name: 'department',
-        message: 'What is the name of the department?',
-    },
-]
+        name: 'departmentName',
+        message: 'Enter the name of the department:'
+      });
+      // Code to add the department to the database
+      await startProgram();
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  }
+
+  async function addRole() {
+    try {
+      const answers = await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'roleTitle',
+          message: 'Enter the title of the role:'
+        },
+        {
+          type: 'input',
+          name: 'roleSalary',
+          message: 'Enter the salary for the role:'
+        },
+        {
+          type: 'input',
+          name: 'departmentId',
+          message: 'Enter the department ID for the role:'
+        }
+      ]);
+      // Code to add the role to the database
+      await startProgram();
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  }
+
+  async function addEmployee() {
+    try {
+      const answers = await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'firstName',
+          message: 'Enter the first name of the employee:'
+        },
+        {
+          type: 'input',
+          name: 'lastName',
+          message: 'Enter the last name of the employee:'
+        },
+        {
+          type: 'input',
+          name: 'roleId',
+          message: 'Enter the ID of the employee\'s role:'
+        },
+        {
+          type: 'input',
+          name: 'managerId',
+          message: 'Enter the ID of the employee\'s manager:'
+        }
+      ]);
+      // Code to add the employee to the database
+      await startProgram();
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  }
+
+  async function updateEmployeeRole() {
+    try {
+      const answers = await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'employeeId',
+          message: 'Enter the ID of the employee you want to update:'
+        },
+        {
+          type: 'input',
+          name: 'newRoleId',
+          message: 'Enter the ID of the employee\'s new role:'
+        }
+      ]);
+      // Code to update the employee's role in the database
+      await startProgram();
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  }
 
 
 
 
 
-
-
-module.exports = { departmentPrompt }
-
-
-/*
-AS A business owner
-I WANT to be able to view and manage the departments, roles, and employees in my company
-SO THAT I can organize and plan my business
-Acceptance Criteria
-GIVEN a command-line application that accepts user input
-WHEN I start the application
-THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-WHEN I choose to view all departments
-THEN I am presented with a formatted table showing department names and department ids
-WHEN I choose to view all roles
-THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
-WHEN I choose to view all employees
-THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-WHEN I choose to add a department
-THEN I am prompted to enter the name of the department and that department is added to the database
-WHEN I choose to add a role
-THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
-WHEN I choose to add an employee
-THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
-WHEN I choose to update an employee role
-THEN I am prompted to select an employee to update and their new role and this information is updated in the database
-*/
+module.exports = { startProgram, viewAllDepartments, viewAllRoles, viewAllEmployees, addDepartment, addRole, addEmployee, updateEmployeeRole }

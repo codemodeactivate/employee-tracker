@@ -1,3 +1,4 @@
+-- language=MySQL
 DROP DATABASE IF EXISTS employee_tracker_db;
 CREATE DATABASE employee_tracker_db;
 
@@ -9,7 +10,7 @@ CREATE TABLE department (
 );
 
 CREATE TABLE role (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(30),
     salary DECIMAL,
     department_id INT,
