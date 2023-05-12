@@ -5,5 +5,30 @@
     "inquirer": "^8.2.4",
     "install": "^0.13.0",
     "mysql2": "^3.3.0"
-  }
+  },
+  "name": "employee-tracker",
+  "description": "## Description",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codemodeactivate/employee-tracker.git"
+  },
+  "keywords": [
+    "employee",
+    "tracker",
+    "mysql",
+    "employee",
+    "database"
+  ],
+  "author": "Jeff Zenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codemodeactivate/employee-tracker/issues"
+  },
+  "homepage": "https://github.com/codemodeactivate/employee-tracker#readme"
 }

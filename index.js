@@ -1,5 +1,7 @@
 const express = require('express');
-const db = require('./config/connection');
+//const db = require('./config/connection');
+//const helpers = require('./db/helpers');
+const dbFunctions = require('./utils/inquirer');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -8,7 +10,7 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-
+dbFunctions.startProgram();
 
 
 // Start the server

@@ -1,5 +1,6 @@
-const dbFunctions = require('../db/helpers');
+
 const inquirer = require('inquirer');
+const db = require('../config/connection');
 
 async function startProgram() {
     try {
@@ -54,10 +55,19 @@ async function startProgram() {
     }
   }
 
-  async function viewAllDepartments() {
-    // Code to display all departments from the database
+async function viewAllDepartments() {
+  //using [rows] to destructure the rows out of the array and avoid other metadata being provided.
+  try {
+    const [rows] = await db.promise().query('SELECT name FROM department');
+    const departmentNames = rows.map(row => row.name);
+    console.log(departmentNames);
+      await startProgram();
+  } catch (error) {
+    console.log('Error:', error);
+  } finally {
     await startProgram();
   }
+}
 
   async function viewAllRoles() {
     // Code to display all roles from the database
