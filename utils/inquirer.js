@@ -1,6 +1,7 @@
 
 const inquirer = require('inquirer');
 const db = require('../config/connection');
+const Table = require('cli-table3');
 
 async function startProgram() {
     try {
@@ -55,19 +56,24 @@ async function startProgram() {
     }
   }
 
-async function viewAllDepartments() {
-  //using [rows] to destructure the rows out of the array and avoid other metadata being provided.
-  try {
-    const [rows] = await db.promise().query('SELECT name FROM department');
-    const departmentNames = rows.map(row => row.name);
-    console.log(departmentNames);
+  async function viewAllDepartments() {
+    try {
+      const [rows] = await db.promise().query('SELECT name FROM department');
+      const departmentNames = rows.map(row => ({ Name: row.name }));
+      const table = new Table({
+        head: ['Name']
+      });
+      departmentNames.forEach(department => {
+        table.push([department.Name]);
+      });
+      console.log(table.toString());
       await startProgram();
-  } catch (error) {
-    console.log('Error:', error);
-  } finally {
-    await startProgram();
+    } catch (error) {
+      console.log('Error:', error);
+    } finally {
+      await startProgram();
+    }
   }
-}
 
   async function viewAllRoles() {
     // Code to display all roles from the database
