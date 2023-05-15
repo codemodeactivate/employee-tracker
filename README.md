@@ -20,7 +20,7 @@ MySQL Database to update vital roles and information of an organization
 
 [![Demo Video](/assets/preview.png)](https://drive.google.com/file/d/1wqGfnsycF1fsPEezooed3KuC5FMTLW_2/view)
 
-https://watch.screencastify.com/v/1OFidSeQtXkaYVTEG8aX
+[![Demo Video](/assets/preview.png)](https://watch.screencastify.com/v/1OFidSeQtXkaYVTEG8aX)
 
 ## Installation
 
