@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 const db = require("../config/connection");
 const Table = require("cli-table3");
-
+const uuid = require ("uuid");
 async function startProgram() {
     try {
         const answers = await inquirer.prompt({
@@ -17,9 +17,6 @@ async function startProgram() {
                 "Add an employee",
                 "Update an employee role",
                 "View department budgets",
-                "Delete an employee",
-                "Delete a role",
-                "Delete a department",
                 "Quit",
             ],
         });
@@ -47,19 +44,12 @@ async function startProgram() {
                 break;
             case "View department budgets":
                 await viewDepartmentBudget();
-            case "Delete an employee":
-                await deleteEmployee();
                 break;
-            case "Delete a role":
-                await deleteRole();
-                break;
-            case "Delete a department":
-                await deleteDepartment();
-                break;
+
             case "Quit":
                 console.log("Goodbye!");
                 process.exit();
-                break;
+
             default:
                 console.log("Invalid choice");
                 await startProgram();
@@ -356,62 +346,7 @@ async function updateEmployeeRole() {
       }
 
 
-      async function deleteEmployee() {
-        try {
-          const answer = await inquirer.prompt([
-            {
-              type: 'input',
-              name: 'employeeId',
-              message: 'Enter the ID of the employee you want to delete:'
-            }
-          ]);
 
-          // Code to delete the employee from the database
-          await db.promise().query('DELETE FROM employee WHERE id = ?', [answer.employeeId]);
-
-          console.log('Employee deleted successfully.');
-        } catch (error) {
-          console.error('Error deleting employee:', error);
-        }
-      }
-
-      async function deleteDepartment() {
-        try {
-          const [departments] = await db.promise().query("SELECT id, name FROM department");
-          const departmentChoices = departments.map((department) => ({
-            name: department.name,
-            value: department.id,
-          }));
-
-          const answers = await inquirer.prompt([
-            {
-              type: "list",
-              name: "departmentId",
-              message: "Select the department you want to delete:",
-              choices: departmentChoices,
-            },
-            {
-              type: "confirm",
-              name: "confirmDelete",
-              message: "Are you sure you want to delete the department?",
-              default: false,
-            },
-          ]);
-
-          if (answers.confirmDelete) {
-            const deleteDepartment = "DELETE FROM department WHERE id = ?";
-            await db.promise().query(deleteDepartment, [answers.departmentId]);
-
-            console.log("Department deleted successfully");
-          } else {
-            console.log("Delete operation canceled");
-          }
-
-          await startProgram();
-        } catch (error) {
-          console.log("Error:", error);
-        }
-      }
 
 
 
@@ -429,7 +364,4 @@ module.exports = {
     addEmployee,
     updateEmployeeRole,
     viewDepartmentBudget,
-    deleteEmployee,
-
-
 };
