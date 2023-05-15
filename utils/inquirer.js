@@ -66,46 +66,9 @@ async function startProgram() {
 
 
 
-async function viewAllRoles() {
-    try {
-        const [rows] = await db.promise().query("SELECT title FROM role");
-        const table = new Table({
-            head: [{ hAlign: "center", content: "Role Names", colSpan: 1 }],
-            colWidths: [30],
-            style: { head: ["green"] },
-        });
-        for (const row of rows) {
-            table.push([row.title]);
-        }
-        console.log(table.toString());
-        await startProgram();
-    } catch (error) {
-        console.log("Error:", error);
-        await startProgram();
-    }
-}
 
-async function viewAllEmployees() {
-    try {
-        const [rows] = await db
-            .promise()
-            .query("SELECT first_name, last_name FROM employee");
-        const table = new Table({
-            head: [{ hAlign: "center", content: "Employee Names", colSpan: 2 }],
-            colWidths: [30, 30],
-            style: { head: ["green"] },
-        });
-        for (const row of rows) {
-            table.push([row.first_name, row.last_name]);
-        }
-        console.log(table.toString());
-        await startProgram();
-    } catch (error) {
-        console.log("Error:", error);
-    } finally {
-        await startProgram();
-    }
-}
+
+
 
 async function addDepartment() {
     try {
