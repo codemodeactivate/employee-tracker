@@ -122,3 +122,29 @@ async function updateEmployeeRole() {
         console.log("Error:", error);
       }
     }
+
+    async function deleteEmployee() {
+        try {
+          const answer = await inquirer.prompt([
+            {
+              type: 'input',
+              name: 'employeeId',
+              message: 'Enter the ID of the employee you want to delete:'
+            }
+          ]);
+
+          // Code to delete the employee from the database
+          await db.promise().query('DELETE FROM employee WHERE id = ?', [answer.employeeId]);
+
+          console.log('Employee deleted successfully.');
+        } catch (error) {
+          console.error('Error deleting employee:', error);
+        }
+      }
+
+      module.exports = {
+        viewAllEmployees,
+        addEmployee,
+        updateEmployeeRole,
+        deleteEmployee,
+      }

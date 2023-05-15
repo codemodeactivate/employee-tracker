@@ -78,62 +78,6 @@ async function startProgram() {
 
 
 
-      async function deleteEmployee() {
-        try {
-          const answer = await inquirer.prompt([
-            {
-              type: 'input',
-              name: 'employeeId',
-              message: 'Enter the ID of the employee you want to delete:'
-            }
-          ]);
-
-          // Code to delete the employee from the database
-          await db.promise().query('DELETE FROM employee WHERE id = ?', [answer.employeeId]);
-
-          console.log('Employee deleted successfully.');
-        } catch (error) {
-          console.error('Error deleting employee:', error);
-        }
-      }
-
-      async function deleteDepartment() {
-        try {
-          const [departments] = await db.promise().query("SELECT id, name FROM department");
-          const departmentChoices = departments.map((department) => ({
-            name: department.name,
-            value: department.id,
-          }));
-
-          const answers = await inquirer.prompt([
-            {
-              type: "list",
-              name: "departmentId",
-              message: "Select the department you want to delete:",
-              choices: departmentChoices,
-            },
-            {
-              type: "confirm",
-              name: "confirmDelete",
-              message: "Are you sure you want to delete the department?",
-              default: false,
-            },
-          ]);
-
-          if (answers.confirmDelete) {
-            const deleteDepartment = "DELETE FROM department WHERE id = ?";
-            await db.promise().query(deleteDepartment, [answers.departmentId]);
-
-            console.log("Department deleted successfully");
-          } else {
-            console.log("Delete operation canceled");
-          }
-
-          await startProgram();
-        } catch (error) {
-          console.log("Error:", error);
-        }
-      }
 
 
 
